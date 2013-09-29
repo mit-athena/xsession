@@ -1,3 +1,10 @@
+debathena-xsession (1.21) unstable; urgency=low
+
+  * Add git-buildpackage configuration
+  * Set source format to 3.0 (native)
+
+ -- Alexander Chernyakhovsky <achernya@mit.edu>  Sun, 29 Sep 2013 05:58:20 -0400
+
 debathena-xsession (1.20) unstable; urgency=low
 
   * Switch from control.in to control (Trac: #561)
