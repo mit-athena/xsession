@@ -1,3 +1,9 @@
+debathena-xsession (1.22) unstable; urgency=low
+
+  * Update dependency from lert to lert-compat (Trac: #1460)
+
+ -- Jonathan Reed <jdreed@mit.edu>  Thu, 10 Apr 2014 13:12:44 -0400
+
 debathena-xsession (1.21) unstable; urgency=low
 
   * Add git-buildpackage configuration
