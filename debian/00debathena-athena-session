@@ -1,0 +1,18 @@
+# This fixes the variable names lightdm sets for us,
+# so we appear to be a regular Ubuntu session.
+# This should be run as early as possible in Xsession.d
+#
+# DESKTOP_SESSION will be the name of the .desktop file
+# GDMSESSION is mostly unused but will also be the same value
+#
+if [ -e /etc/upstart-xsessions ] && \
+    [ "$DESKTOP_SESSION" = "athena" ]; then
+    # Pretend we're an Ubuntu session
+    export DESKTOP_SESSION=ubuntu
+    export GDMSESSION=ubuntu
+    # This should normally be set by "X-LightDM-DesktopName=Unity"
+    # in the xsession's .desktop file.
+    if [ -z "$XDG_CURRENT_DESKTOP" ]; then
+	export XDG_CURRENT_DESKTOP=Unity
+    fi
+fi

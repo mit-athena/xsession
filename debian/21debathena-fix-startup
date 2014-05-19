@@ -1,0 +1,11 @@
+# STARTUP is normally set to $1 (the Exec= line in the
+# .desktop file).  We reset it to gnome-session, in our
+# continued effort to emulate an Ubuntu session.
+#
+# Note that if you use full paths in the .desktop file
+# this won't work.  Don't do that.
+#
+if [ "$UPSTART" = "1" ] && \
+    [ "$STARTUP" = "athena-session" ]; then
+    STARTUP="gnome-session"
+fi
