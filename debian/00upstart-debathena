@@ -1,0 +1,8 @@
+# This is run immediately after "00upstart" which sets
+# BASESESSION to the basename of $1 (which is the Exec=
+# line from the session's .desktop file)
+#
+if [ "$UPSTART" = "1" ] && \
+    [ "$BASESESSION" = "athena-session" ]; then
+    BASESESSION=gnome-session
+fi
