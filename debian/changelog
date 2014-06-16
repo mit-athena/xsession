@@ -1,3 +1,11 @@
+debathena-xsession (1.24) unstable; urgency=low
+
+  * Convert rules file to dh7
+  * Depend on new debathena-dconf-config package
+  * Update copyright file to copyright format 1.0
+
+ -- Jonathan Reed <jdreed@mit.edu>  Mon, 16 Jun 2014 15:54:33 -0400
+
 debathena-xsession (1.23) unstable; urgency=low
 
   * Add support for Upstart sessions (Trac: #1238)
