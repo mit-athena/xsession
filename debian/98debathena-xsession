@@ -10,6 +10,13 @@ if [ -x /usr/lib/init/xsession.bash ] && \
    [ -x /usr/lib/init/xsession.tcsh ] && \
      [ afs = "$DEBATHENA_HOME_TYPE" -a ! -e "$USERXSESSION" \
      -a ! -e "$ALTUSERXSESSION" ]; then
+  # Workaround for LP #1328677 and Trac #1481
+  if [ -e "${XDG_CONFIG_HOME:-$HOME/.config}/debathena/unity-first-run.stamp" ]; then
+      unitycache="${XDG_CACHE_HOME:-$HOME/.cache}/unity"
+      mkdir -p "$unitycache"
+      touch "${unitycache}/first_run.stamp"
+  fi
+
   case $SHELL in
   */bash)
     STARTUP="/usr/lib/init/xsession.bash $STARTUP"

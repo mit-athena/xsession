@@ -1,3 +1,13 @@
+debathena-xsession (1.25) unstable; urgency=low
+
+  * Add unity-logout-watcher via an xdg-autostart file, which looks for
+    the unity first run stamp, and stamps our own file in XDG_CONFIG_HOME
+  * Modify 98debathena-xsession to check for our workaround for
+    Unity's first-run stamp (Trac: #1481)
+  * Depend on python-dbus and python-gobject
+
+ -- Jonathan Reed <jdreed@mit.edu>  Sat, 05 Jul 2014 17:05:25 -0400
+
 debathena-xsession (1.24) unstable; urgency=low
 
   * Convert rules file to dh7

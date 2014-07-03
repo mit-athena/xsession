@@ -20,6 +20,8 @@ Depends: x11-common,
  xterm,
  gnome-session,
  debathena-dconf-config,
+ python-dbus,
+ python-gobject,
  ${misc:Depends}
 Replaces: debathena-dotfiles-x11
 Conflicts: debathena-dotfiles-x11, debathena-dotfiles (<< 10.0.2-0debathena3)

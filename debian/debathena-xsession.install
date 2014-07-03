@@ -28,3 +28,5 @@ debian/initial-x-terminal usr/lib/init
 debian/quotawarn usr/lib/init
 debian/xsession.bash usr/lib/init
 debian/xsession.tcsh usr/lib/init
+debian/unity-logout-watcher.desktop etc/xdg/autostart
+debian/unity-logout-watcher usr/lib/init

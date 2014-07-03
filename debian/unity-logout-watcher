@@ -1,0 +1,76 @@
+#!/usr/bin/python -Wall
+
+import dbus
+import dbus.mainloop.glib
+import gobject
+import os
+import sys
+
+SM_DBUS_NAME = "org.gnome.SessionManager"
+SM_DBUS_PATH = "/org/gnome/SessionManager"
+SM_DBUS_INTERFACE = "org.gnome.SessionManager"
+SM_CLIENT_DBUS_INTERFACE = "org.gnome.SessionManager.ClientPrivate"
+APP_ID = "unity-logout-watcher"
+
+def unity_first_run_stamp():
+    """ Fix for Trac #1481 / LP# 1328677"""
+    home = os.getenv('HOME', None)
+    if home is None:
+        print >>sys.stderr, "unity-logout-watcher: HOME is unset.  WTF?"
+        return None
+    xdgcache = os.getenv('XDG_CACHE_HOME', os.path.join(home, '.cache'))
+    xdgconfig = os.getenv('XDG_CONFIG_HOME', os.path.join(home, '.config'))
+    try:
+        if os.path.exists(os.path.join(xdgcache, "unity/first_run.stamp")):
+            dirname = os.path.join(xdgconfig, 'debathena')
+            if not os.path.isdir(dirname):
+                os.makedirs(dirname)
+            open(os.path.join(dirname, 'unity-first-run.stamp'),
+                 'a').close()
+    except OSError as e:
+        print >>sys.stderr, "unity-logout-watcher: ", \
+            "error while creating flag file", e
+
+class Watcher:
+    def __init__(self, loop):
+        self.loop = loop
+        self.sessionBus = dbus.SessionBus()
+        try:
+            self.register_with_sm()
+            self.init_sm_client()
+        except:
+            print >>sys.stderr, "unity-logout-watcher:", \
+                "Cannot register with session manager."
+
+    # Connect to the session manager, and register our client.
+    def register_with_sm(self):
+        proxy = self.sessionBus.get_object(SM_DBUS_NAME, SM_DBUS_PATH)
+        sm = dbus.Interface(proxy, SM_DBUS_INTERFACE)
+        autostart_id = os.getenv("DESKTOP_AUTOSTART_ID", default="")
+        self.smClientId = sm.RegisterClient(APP_ID, autostart_id)
+
+    # Set up to handle signals from the session manager.
+    def init_sm_client(self):
+        proxy = self.sessionBus.get_object(SM_DBUS_NAME, self.smClientId)
+        self.smClient = dbus.Interface(proxy, SM_CLIENT_DBUS_INTERFACE)
+        self.smClient.connect_to_signal("EndSession", self.sm_on_EndSession)
+        self.smClient.connect_to_signal("Stop", self.sm_on_Stop)
+
+    # Here on an EndSession signal from the session manager.
+    def sm_on_EndSession(self, flags):
+        unity_first_run_stamp()
+        # Response args: is_ok, reason.
+        self.smClient.EndSessionResponse(True, "")
+
+    # Here on a Stop signal from the session manager.
+    def sm_on_Stop(self):
+        self.loop.quit()
+
+def main():
+    dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
+    loop = gobject.MainLoop()
+    Watcher(loop)
+    loop.run()
+
+if __name__ == '__main__':
+    main()

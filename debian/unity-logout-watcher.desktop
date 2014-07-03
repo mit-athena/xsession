@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Unity Logout Watcher
+Comment=Watch for logouts and handle Unity first-run stamp
+Icon=gnome-settings
+Exec=/usr/lib/init/unity-logout-watcher
+Terminal=false
+Type=Application
+X-GNOME-Autostart-Delay=3
