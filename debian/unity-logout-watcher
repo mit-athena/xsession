@@ -53,8 +53,15 @@ class Watcher:
     def init_sm_client(self):
         proxy = self.sessionBus.get_object(SM_DBUS_NAME, self.smClientId)
         self.smClient = dbus.Interface(proxy, SM_CLIENT_DBUS_INTERFACE)
+        self.smClient.connect_to_signal("QueryEndSession",
+                                        self.sm_on_QueryEndSession)
         self.smClient.connect_to_signal("EndSession", self.sm_on_EndSession)
         self.smClient.connect_to_signal("Stop", self.sm_on_Stop)
+
+   # Here on a QueryEndSession signal from the session manager.
+    def sm_on_QueryEndSession(self, flags):
+        # Response args: is_ok, reason.
+        self.smClient.EndSessionResponse(True, "")
 
     # Here on an EndSession signal from the session manager.
     def sm_on_EndSession(self, flags):

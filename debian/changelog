@@ -1,3 +1,10 @@
+debathena-xsession (1.25.1) unstable; urgency=low
+
+  * unity-logout-watcher must respond to QueryEndSession, if it has
+    registered with the session manager.
+
+ -- Jonathan Reed <jdreed@mit.edu>  Wed, 09 Jul 2014 11:57:51 -0400
+
 debathena-xsession (1.25) unstable; urgency=low
 
   * Add unity-logout-watcher via an xdg-autostart file, which looks for
