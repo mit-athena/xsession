@@ -1,3 +1,9 @@
+debathena-xsession (1.26) unstable; urgency=low
+
+  * Depend on the new debathena-account-repair package
+
+ -- Jonathan Reed <jdreed@mit.edu>  Thu, 21 Aug 2014 13:59:56 -0400
+
 debathena-xsession (1.25.1) unstable; urgency=low
 
   * unity-logout-watcher must respond to QueryEndSession, if it has
