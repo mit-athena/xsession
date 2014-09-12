@@ -1,3 +1,9 @@
+debathena-xsession (1.27) unstable; urgency=low
+
+  * Restore per-user xsessions (Trac: #1525)
+
+ -- Jonathan Reed <jdreed@mit.edu>  Fri, 12 Sep 2014 15:01:26 -0400
+
 debathena-xsession (1.26) unstable; urgency=low
 
   * Depend on the new debathena-account-repair package
