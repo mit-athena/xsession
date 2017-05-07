@@ -1,3 +1,10 @@
+debathena-xsession (1.28) unstable; urgency=medium
+
+  * /etc/X11/Xsession.d/99upstart-debathena: Update to match
+    ‘/sbin/upstart --user’ as well as ‘init --user’, for Xenial.
+
+ -- Anders Kaseorg <andersk@mit.edu>  Sun, 07 May 2017 02:39:08 -0400
+
 debathena-xsession (1.27) unstable; urgency=low
 
   * Restore per-user xsessions (Trac: #1525)

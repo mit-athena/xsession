@@ -1,7 +1,7 @@
 # This is run after 99upstart, to wrap the session
 # in our xsession code
 #
-if [ "$STARTUP" = "init --user" ] && \
+if { [ "$STARTUP" = "init --user" ] || [ "$STARTUP" = "/sbin/upstart --user" ]; } && \
     [ -e /etc/X11/Xsession.d/98debathena-xsession ]; then
     . /etc/X11/Xsession.d/98debathena-xsession
 fi
